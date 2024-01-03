@@ -2,7 +2,7 @@ package sec02.exam01;
 
 import java.util.Scanner;
 
-public class PracticeExam {
+public class PracticeExam2 {
 	public static void main (String[] args) {
 		//p.98 1번
 //		String name = "감자바";
@@ -61,7 +61,7 @@ public class PracticeExam {
 		
 		int password = Integer.parseInt(strPassword);
 		
-		if(name == "java") {
+		if(name.equals("java")) {
 			if(password == 12345) {
 				System.out.println("로그인 성공");
 			}else {

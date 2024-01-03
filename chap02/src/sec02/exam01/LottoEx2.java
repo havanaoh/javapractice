@@ -5,17 +5,15 @@ import java.util.Scanner;
 
 public class LottoEx2 {
 	
-	public static int creatNumber() {
-		Random random = new Random();
+	public static int creatNumber(Random random) {
+//		Random random = new Random();
 		return random.nextInt(10)+1;
 	}
 	public static void multiplication() {
-		{
-
 			Random random = new Random();
 			Scanner scan = new Scanner(System.in);
 
-			int num1 = random.nextInt(10) + 1;
+			int num1 = creatNumber(random);
 			int num2 = random.nextInt(10) + 1;
 			int multi = num1 * num2;
 
@@ -33,7 +31,7 @@ public class LottoEx2 {
 			}
 
 		}
-	}
+	
 
 	public static void main(String[] args) {
 		for (int i = 0; i < 3; i++) {
