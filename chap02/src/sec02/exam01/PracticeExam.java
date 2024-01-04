@@ -29,7 +29,7 @@ public class PracticeExam {
 //		System.out.println("덧셈 결과 : " + result);
 		
 		
-		// p.99 3
+		// p.99 3 (회원가입)
 		
 //		Scanner scanner = new Scanner(System.in);
 //		System.out.println("[필수 입력 정보]" );
@@ -49,7 +49,7 @@ public class PracticeExam {
 //		System.out.println(birth);
 //		System.out.println(cell);
 		
-		// p.130 / 11
+		// p.130 / 11 (로그인)
 		
 //		Scanner scanner = new Scanner(System.in);
 //		
@@ -71,7 +71,7 @@ public class PracticeExam {
 //			System.out.println("로그인 실패 : 아이디 존재하지 않음");
 //		}
 		
-		// p.160 / 7
+		// p.160 / 7 
 		
 		boolean run = true;
 		int balance = 0;
@@ -86,6 +86,12 @@ public class PracticeExam {
 			switch(num) {
 			case 1:
 				System.out.println("예금액> ");
+				balance += Integer.parseInt(scanner.nextLine());
+				break; 
+			case 2:
+				System.out.println("출금액> ");
+				balance -= Integer.parseInt(scanner.nextLine());
+				
 				
 			}
 				

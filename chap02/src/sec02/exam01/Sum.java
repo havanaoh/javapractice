@@ -3,7 +3,15 @@ package sec02.exam01;
 import java.util.Scanner;
 
 public class Sum {
+			
 	
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		
+		sum(scanner); // 여긴 왜 Scanner가 안들어가는걸까용
+		multi(scanner);
+	}
+
 	public static void sum(Scanner scanner) { // 정적 메소드 static method
 		
 		 System.out.print("첫번째 수:");
@@ -25,13 +33,5 @@ public class Sum {
 		 int num2 = Integer.parseInt(strNum2);
 		 int result = num1 * num2;
 		 System.out.println("곱셈 결과:" + result);
-		
-	}
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		
-		sum(scanner); // 여긴 왜 Scanner가 안들어가는걸까용
-		multi(scanner);
-	}
-
-}
+ }
+ }
