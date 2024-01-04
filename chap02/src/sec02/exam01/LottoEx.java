@@ -27,8 +27,8 @@ public class LottoEx {
 		Random rd1= new Random();
 		Random rd2= new Random();
 		
-		int num1 = rd1.nextInt(99);
-		int num2 = rd2.nextInt(99);
+		int num1 = rd1.nextInt(10);
+		int num2 = rd2.nextInt(10);
 		
 		System.out.println(num1 + " X " + num2);
 		

@@ -4,14 +4,14 @@ import java.util.Scanner;
 
 public class PracticeExam {
 	public static void main (String[] args) {
-		//p.98 1번
-//		String name = "감자바";
-//		int age = 25;
-//		String tel1 = "010", tel2 = "123", tel3 = "4567";
-//		
-//		System.out.println("이름 : " + name);
-//		System.out.print("나이 : " + age + "\n");
-//		System.out.printf("전화 : %1$s-%2$s-%3$s\n", tel1, tel2, tel3);
+//		p.98 1번
+		String name = "감자바";
+		int age = 25;
+		String tel1 = "010", tel2 = "123", tel3 = "4567";
+		
+		System.out.println("이름 : " + name);
+		System.out.print("나이 : " + age + "\n");
+		System.out.printf("전화 : %1$s-%2$s-%3$s\n", tel1, tel2, tel3);
 		
 		//p.98 2번
 		
@@ -51,26 +51,45 @@ public class PracticeExam {
 		
 		// p.130 / 11
 		
+//		Scanner scanner = new Scanner(System.in);
+//		
+//		System.out.print("아이디:");
+//		String name = scanner.nextLine();
+//		
+//		System.out.print("패스워드:");
+//		String strPassword = scanner.nextLine();
+//		
+//		int password = Integer.parseInt(strPassword);
+//		
+//		if(name.equals("java")) {
+//			if(password == 12345) {
+//				System.out.println("로그인 성공");
+//			}else {
+//				System.out.println("로그인 실패:패스워드가 틀림");
+//			}
+//		} else {
+//			System.out.println("로그인 실패 : 아이디 존재하지 않음");
+//		}
+		
+		// p.160 / 7
+		
+		boolean run = true;
+		int balance = 0;
 		Scanner scanner = new Scanner(System.in);
-		
-		System.out.print("아이디:");
-		String name = scanner.nextLine();
-		
-		System.out.print("패스워드:");
-		String strPassword = scanner.nextLine();
-		
-		int password = Integer.parseInt(strPassword);
-		
-		if(name == "java") {
-			if(password == 12345) {
-				System.out.println("로그인 성공");
-			}else {
-				System.out.println("로그인 실패:패스워드가 틀림");
+		while(run) {
+			System.out.println("----------------");
+			System.out.println("1.예금 : 2.출금 : 3.잔고 : 4.종료");
+			System.out.println("----------------");
+			System.out.print("선택> ");
+			
+			switch(num) {
+			case 1:
+				System.out.println("예금액> ");
+				
 			}
-		} else {
-			System.out.println("로그인 실패 : 아이디 존재하지 않음");
+				
 		}
-		
+		System.out.println("프로그램 종료");
 	
 	
 	}
