@@ -81,7 +81,8 @@ public class PracticeExam {
 			System.out.println("1.예금 : 2.출금 : 3.잔고 : 4.종료");
 			System.out.println("----------------");
 			System.out.print("선택> ");
-			
+		
+			int num = Integer.parseInt(scanner.nextLine());
 			switch(num) {
 			case 1:
 				System.out.println("예금액> ");
