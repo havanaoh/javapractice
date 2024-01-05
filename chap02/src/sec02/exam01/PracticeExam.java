@@ -98,7 +98,7 @@ public class PracticeExam {
 //		}
 //		System.out.println("프로그램 종료");
 	
-		Scanner scanner = new scanner(System.in);
+		Scanner scanner = new Scanner(System.in);
 		System.out.println("첫 번째 수 : ");
 		double num1 = scanner.nextDouble();
 		System.out.println("두 번째 수 : ");
