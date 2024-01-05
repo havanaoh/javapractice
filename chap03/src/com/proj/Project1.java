@@ -3,7 +3,7 @@ package com.proj;
 import java.util.Scanner;
 
 public class Project1 {
-	public static void deposit(String loginStatus, boolean run2, Scanner scanner, int balance) {
+	public static int deposit(boolean loginStatus, boolean run2, Scanner scanner, int balance) {
 		if (loginStatus) {  // 로그인 여부
 			run2 = true;
 		} else {
@@ -34,6 +34,7 @@ public class Project1 {
 			}
 			System.out.println();
 		}
+		return balance;
 	}
 	
 	public static void displayMember(String memberName, String memberSSN, String memberTel){
