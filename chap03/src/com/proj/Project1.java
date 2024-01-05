@@ -3,6 +3,38 @@ package com.proj;
 import java.util.Scanner;
 
 public class Project1 {
+	public static void deposit(String loginStatus, boolean run2, Scanner scanner, int balance) {
+		if (loginStatus) {  // 로그인 여부
+			run2 = true;
+		} else {
+			System.out.println("로그인 하시기 바랍니다.");
+		}
+		while (run2) {
+			System.out.println("-------------------------------------");
+			System.out.println("1.예금 | 2.출금 | 3.잔고 | 4.종료");
+			System.out.println("-------------------------------------");
+			System.out.print("선택> ");
+			int menuNum2 = Integer.parseInt(scanner.nextLine());
+			switch (menuNum2) {
+			case 1:
+				System.out.print("예금액> ");
+				balance += Integer.parseInt(scanner.nextLine());
+				break;
+			case 2:
+				System.out.print("출금액> ");
+				balance -= Integer.parseInt(scanner.nextLine());
+				break;
+			case 3:
+				System.out.print("잔고> ");
+				System.out.println(balance);
+				break;
+			case 4:
+				run2 = false;
+				break;
+			}
+			System.out.println();
+		}
+	}
 	
 	public static void displayMember(String memberName, String memberSSN, String memberTel){
 		System.out.println();
@@ -134,36 +166,7 @@ public class Project1 {
 				break;
 				
 			case 3:
-				if (loginStatus) {  // 로그인 여부
-					run2 = true;
-				} else {
-					System.out.println("로그인 하시기 바랍니다.");
-				}
-				while (run2) {
-					System.out.println("-------------------------------------");
-					System.out.println("1.예금 | 2.출금 | 3.잔고 | 4.종료");
-					System.out.println("-------------------------------------");
-					System.out.print("선택> ");
-					int menuNum2 = Integer.parseInt(scanner.nextLine());
-					switch (menuNum2) {
-					case 1:
-						System.out.print("예금액> ");
-						balance += Integer.parseInt(scanner.nextLine());
-						break;
-					case 2:
-						System.out.print("출금액> ");
-						balance -= Integer.parseInt(scanner.nextLine());
-						break;
-					case 3:
-						System.out.print("잔고> ");
-						System.out.println(balance);
-						break;
-					case 4:
-						run2 = false;
-						break;
-					}
-					System.out.println();
-				}
+				balance = deposit(loginStatus, run2, scanner, balance);
 				break;
 			case 4:
 				run = false;
