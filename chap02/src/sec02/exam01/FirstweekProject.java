@@ -4,27 +4,28 @@ import java.util.Scanner;
 
 public class FirstweekProject {
 	
-	public static void login(String name, String birth) {
+	public static void login() {
 		Scanner scanner = new Scanner(System.in);
 		
 		boolean run = true;
 		while (run) {
-		System.out.print("이름:");
-		String name1 = scanner.nextLine();
-		
-		System.out.print("패스워드(주민번호 앞 6자리):");
-		String birth1 = scanner.nextLine();
-						
-		if(name1.equals(name1)) {
-			if(birth1.equals(birth1)) {
-				System.out.println("로그인 성공");
-				run = false; // 성공적인 로그인 후 루프 종료
-			}else {
-				System.out.println("로그인 실패:패스워드가 틀림");
+			System.out.print("아이디:");
+			String name = scanner.nextLine();
+			
+			System.out.print("패스워드:");
+			String strPassword = scanner.nextLine();
+			
+			int birth = Integer.parseInt(strPassword);
+			
+			if(name.equals("홍길동")) {
+				if(birth == 000101) {
+					System.out.println("로그인 성공");
+				}else {
+					System.out.println("로그인 실패:패스워드가 틀림");
+				}
+			} else {
+				System.out.println("로그인 실패 : 아이디 존재하지 않음");
 			}
-		} else {
-			System.out.println("로그인 실패 : 아이디 존재하지 않음");
-		}
 		}
 	}
 		
@@ -80,7 +81,7 @@ public class FirstweekProject {
 		System.out.print("3. 전화번호:");
 		String cell = scanner.nextLine();
 				
-		login(name, birth);
+		login();
 		boolean run = true;
 		while (true) {
 			bank();
