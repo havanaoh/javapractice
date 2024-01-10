@@ -1,5 +1,6 @@
 package Project;
 
+<<<<<<< HEAD
 import java.util.Scanner;
 
 public class AccountEx {

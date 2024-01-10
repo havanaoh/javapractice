@@ -4,6 +4,7 @@ public class Account {
 	String name; // 이름 필드(아이디로 사용)
 	String ssn;	 // 생년월일 (패스워드로 사용)
 	String tel;  // 
+<<<<<<< HEAD
 	int balance;
 	int age;
 	
@@ -32,8 +33,14 @@ public class Account {
 
 	@Override
 	public String toString() {
-		return "Account [name=" + name + ", ssn=" + ssn + ", tel=" + tel + ", balance=" + balance + "]";
+		return "Account [name=" + name + ", ssn=" + ssn + ", tel=" + tel + ", age=" + age + "]";
+>>>>>>> 456167b6dd089685b459e6628b129bccd33ee33f
 	}
 	
-
+	
+	
+<<<<<<< HEAD
+	
+=======
+>>>>>>> 456167b6dd089685b459e6628b129bccd33ee33f
 }
