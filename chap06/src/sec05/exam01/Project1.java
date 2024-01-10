@@ -1,14 +1,12 @@
-package Project;
+package sec05.exam01;
 
 import java.util.Scanner;
 
+public class Project1 {
 
-
-public class AccountEx {
-
+	
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		
 		boolean run = true;
 		boolean run2 = true;
 		boolean login = false;
@@ -20,51 +18,54 @@ public class AccountEx {
 		
 		int idx = -1;
 		
-		
 		while (run) {
 			System.out.println("-------------------------------------");
-			if (login) {
-				System.out.println(acc[idx].name+ " 고객님으로 로그인 상태입니다.");
-				}
-			System.out.println("1.로그인 | 2.회원가입 | 3.예금/출금 | 4.종료");
+			System.out.println("1.로그인 | 2.회원수정 | 3.예금/출금 | 4.종료");
 			System.out.println("-------------------------------------");
+			
+			if (login) {
+				System.out.println(acc[idx].name + " 고객님으로 로그인 상태입니다.");
+				}
 			System.out.print("선택> ");
+			
 			int menuNum = Integer.parseInt(scanner.nextLine());
 			switch (menuNum) {
 			case 1:
 				// 로그인 처리
 				System.out.println("로그인 시도");
-				System.out.print("아이디:");
+				System.out.print("아이디: ");
 				String id = scanner.nextLine();
-				System.out.print("비밀번호:");
+				System.out.print("패스워드: ");
 				String pass = scanner.nextLine();
-				for (int i=0; i<acc.length; i++) {
-					if(id.equals(acc[i].name)) {
-						if(pass.equals(acc[i].ssn)) {
-						System.out.println("로그인 되었습니다.");
-						idx = i;
-						run2 = true;
-						login = true;
-						} else System.out.println("비밀번호 오류입니다.");
-					} else System.out.println("아이디가 존재하지 않습니다.");
+				for (int i=0; i < acc.length; i++) {
+					if (id.equals(acc[i].name)) {
+						if (pass.equals(acc[i].ssn)) {
+							System.out.println("로그인 성공!");
+							idx = i;
+							run2 = true;
+							login = true;
+						} else {
+							System.out.println("비밀번호 불일치");
+						}
+					} 
 				}
 				break;
 			case 2:
-				// 회원 가입
-				System.out.println("회원 가입");
-				for(int i=0; i < acc.length; i++) {
-					System.out.println("이름: ");
+				// 회원 수정
+				if (login == true) {
+					System.out.println("회원 정보 수정");
+					System.out.print("이름: ");
 					String name = scanner.nextLine();
-					System.out.println("생년월일: ");
+					System.out.print("생년월일: ");
 					String ssn = scanner.nextLine();
-					System.out.println("전화번호: ");
+					System.out.print("전화번호: ");
 					String tel = scanner.nextLine();
-					acc[i] = new Account(name, ssn,tel);
-					System.out.println(acc[i]);
+					acc[idx] = new Account(name, ssn, tel);
+					System.out.println(acc[idx]);
+				} else {
+					System.out.println("로그인 후 회원 정보를 수정하세요.");
 				}
-				
-//				acc = new Account(name, ssn, tel);
-//				System.out.println(acc);
+
 				break;
 			case 3:
 				// 예금 출금
@@ -75,27 +76,24 @@ public class AccountEx {
 					System.out.println("-------------------------------------");
 					System.out.print("선택> ");
 					int menuNum2 = Integer.parseInt(scanner.nextLine());
-					
 					switch (menuNum2) {
 					case 1:
 						System.out.print("예금액> ");
 						acc[idx].balance += Integer.parseInt(scanner.nextLine());
-						System.out.println("현재 잔고> " + acc[idx].balance);
 						break;
 					case 2:
 						System.out.print("출금액> ");
 						acc[idx].balance -= Integer.parseInt(scanner.nextLine());
-						System.out.println("현재 잔고> " + acc[idx].balance);
 						break;
 					case 3:
 						System.out.print("잔고> ");
-						System.out.println(acc[idx].balance);					
+						System.out.println(acc[idx].balance);
 						break;
 					case 4:
 						run2 = false;
-						System.out.println("은행 프로그램 종료");
 						break;
-						}
+					}
+					System.out.println();
 				}
 				break;
 			case 4:
@@ -104,8 +102,5 @@ public class AccountEx {
 			}
 		}
 		System.out.println("프로그램 종료");
-		scanner.close();
-		}
-
+	}
 }
-
