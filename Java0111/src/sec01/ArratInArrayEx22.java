@@ -15,7 +15,7 @@ public class ArratInArrayEx22 {
 		int[][] scores = new int[n1][n2];
 		
 		for(int i=0; i< scores.length; i++) {
-			for(int j=0; j < scores.length; j++) {
+			for(int j=0; j < scores[i].length; j++) {
 			System.out.println("socores[" + i +"]>");
 			scores[i][j] = Integer.parseInt(scan.nextLine());
 			}
