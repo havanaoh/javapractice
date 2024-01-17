@@ -1,12 +1,17 @@
 package com;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class Project {
 	
-	public static void main(String[] agrs) {
+	public static void main(String[] agrs) throws IOException, ClassNotFoundException {
 		Scanner scanner = new Scanner(System.in);
 		boolean run = true;
 		List<Member> list = new ArrayList<>();
@@ -31,17 +36,29 @@ public class Project {
 				String id = scanner.nextLine();
 				System.out.print("생년월일:");
 				String ssn = scanner.nextLine();
-				System.out.print("비밀번호:");
+				System.out.print("PW:");
 				String pw = scanner.nextLine();
-				System.out.print("전화번호:");
+				System.out.print("TEL:");
 				String tel = scanner.nextLine();
 				list.add(new Member(name, id, ssn, pw, tel));
 				break;
 			case 3:
 				System.out.println("파일 저장");
+				FileOutputStream fos = new FileOutputStream("c:/temp/acc.db");
+				ObjectOutputStream oos = new ObjectOutputStream(fos);
+				oos.writeObject(list);
+				oos.flush();
+				oos.close();
 				break;
 			case 4:
 				System.out.println("파일 읽기");
+				FileInputStream fis = new FileInputStream("c:/temp/acc.db");
+				ObjectInputStream ois = new ObjectInputStream(fis);
+				list = (List<Member>) ois.readObject();
+				for (Member member : list) {
+					System.out.println(member);
+				}
+				ois.close();
 				break;
 			case 5:
 				System.out.println("종료");

@@ -1,6 +1,9 @@
 package com;
 
-public class Member {
+import java.io.Serializable;
+
+
+public class Member implements Serializable{
 	private String name;
 	private String id;
 	private String pw;
@@ -17,6 +20,18 @@ public class Member {
 		this.ssn = ssn;
 		
 	}
+
+	
+	public Member(String name, String id, String pw, String tel, String ssn, int balance) {
+		super();
+		this.name = name;
+		this.id = id;
+		this.pw = pw;
+		this.tel = tel;
+		this.ssn = ssn;
+		this.balance = balance;
+	}
+
 
 	public String getName() {
 		return name;
@@ -85,5 +100,8 @@ public class Member {
 			System.out.println("잔액이 부족합니다.");
 		}
 	}
+	
+
+	
 	
 }
