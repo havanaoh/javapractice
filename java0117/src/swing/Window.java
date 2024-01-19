@@ -12,8 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Window extends JFrame implements ActionListener
-										{
+public class Window extends JFrame implements ActionListener{
 	JButton jb1 = new JButton("전체 내용");
 	JButton jb2 = new JButton("입력");
 	JButton jb3 = new JButton("조회");
