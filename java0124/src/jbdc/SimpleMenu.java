@@ -19,7 +19,6 @@ public class SimpleMenu{
         
     
     public static void main(String[] args) {
-    	
         try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
            	boolean exit = false;
            	
@@ -69,8 +68,7 @@ public class SimpleMenu{
 
 	}
 
-    private static void insertData(Connection connection) {
-    	
+    private static void insertData(Connection connection) {    	
     	System.out.print("부서번호:");
 		int deptno = Integer.parseInt(scanner.nextLine());
 		System.out.print("부서이름:");

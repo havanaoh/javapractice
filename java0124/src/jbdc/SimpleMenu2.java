@@ -7,8 +7,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import com.mysql.cj.protocol.Resultset;
-
 public class SimpleMenu2{
 
     private static final String DB_URL = "jdbc:mysql://localhost:3306/firm";
@@ -69,6 +67,19 @@ public class SimpleMenu2{
     }
 
     private static void insertData(Connection connection) {
+    	System.out.print("부서번호:");
+    	int deptno = Integer.parseInt(scanner.nextLine());
+    	System.out.print("부서이름:");
+    	String dname = scanner.nextLine();
+    	System.out.print("부서위치:");
+    	String loc = scanner.nextLine();
+    	String sql = "insert into dept(deptno, dname, loc) values ('"+deptno+"','"+ dname+"','"+ loc+"')";
+        try {
+			stmt = connection.createStatement();
+			int result = stmt.executeUpdate(sql);
+			} catch (SQLException e) {
+				e.printStackTrace();
+		}
         
     }
 }
