@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class JdbcSelect {
-		List<JdbcSelect> = list.
+		
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		String url = "jdbc:mysql://localhost:3306/firm";
 		String id = "root";
