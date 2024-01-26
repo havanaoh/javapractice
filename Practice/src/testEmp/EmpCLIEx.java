@@ -11,12 +11,12 @@ public class EmpCLIEx {
 	private static final String DB_URL = "jdbc:mysql://localhost:3306/firm";
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "mysql";
-    static Scanner scanner = new Scanner(System.in);
-    static Statement stmt = null; 
-    static ResultSet rs = null;
-    int empno, mgr, deptno;
-    double sal, comm;
-    String ename, job, hiredate, sql, sql2;
+    private static Scanner scanner = new Scanner(System.in);
+    private static Statement stmt = null; 
+    private static ResultSet rs = null;
+    private int empno, mgr, deptno;
+    private double sal, comm;
+    private String ename, job, hiredate, sql;
     
 	public static void main(String[] args) {
 		EmpCLIEx ec = new EmpCLIEx();
@@ -44,6 +44,7 @@ public class EmpCLIEx {
                     	ec.deleteData(connection);
                         break;
                     case "6":
+                    	System.out.println("시스템을 종료합니다");
                         exit = true;
                         break;
                     default:
@@ -85,9 +86,9 @@ public class EmpCLIEx {
 	}
 	
 	private void searchData(Connection connection) {
-		System.out.println("검색할 사번을 입력하세요 : ");
-		empno = Integer.parseInt(scanner.nextLine());
-		sql = "select * from emp where empno = '" + empno + "'";
+		System.out.println("검색할 이름을 입력하세요 : ");
+		ename = scanner.nextLine();
+		sql = "select * from emp where ename = '" + ename + "'";
 		try {
 			stmt = connection.createStatement();
 			rs = stmt.executeQuery(sql);
@@ -109,28 +110,77 @@ public class EmpCLIEx {
 	}
 	
 	private void insertData(Connection connection) {
-		System.out.println("등록할 사원의 정보를 입력해주세요 : ");
+		System.out.println("등록할 사원의 정보를 입력해주세요");
 		System.out.print("사원번호:");
 		empno = Integer.parseInt(scanner.nextLine());
+		System.out.print("부서:");
+		job = scanner.nextLine();
 		System.out.print("사원명:");
 		ename = scanner.nextLine();
 		System.out.print("mgr:");
-		
+		mgr = Integer.parseInt(scanner.nextLine());
 		System.out.print("입사일:");
 		hiredate = scanner.nextLine();
 		System.out.print("연봉:");
 		sal = scanner.nextDouble();
 		System.out.print("성과금:");
 		comm = scanner.nextDouble();
+		scanner.nextLine();
 		System.out.print("부서번호:");
 		deptno = Integer.parseInt(scanner.nextLine());
+		String sql = "insert into emp(empno, ename, mgr, hiredate, "
+				+ "sal , comm, deptno) values ("
+				+empno+", '"+ename+"', "+mgr+", '"+hiredate+"', "
+				+sal+", "+comm+", "+deptno+")";
+		try {
+			stmt = connection.createStatement();
+			int result = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println(sql);
 	}
 	
 	private void updateData(Connection connection) {
-		
+		System.out.println("수정할 사원 정보를 입력하세요");
+		empno = Integer.parseInt(scanner.nextLine());
+		try {
+			stmt = connection.createStatement();
+			System.out.println("변경할 정보를 입력하세요");
+			System.out.print("사원명: ");
+			ename = scanner.nextLine();
+			System.out.print("부서: ");			
+			job = scanner.nextLine();
+			System.out.print("mgr:");
+			mgr = Integer.parseInt(scanner.nextLine());
+			System.out.print("연봉:");
+			sal = scanner.nextDouble();
+			System.out.print("성과금:");
+			comm = scanner.nextDouble();
+			scanner.nextLine();
+			System.out.print("부서번호:");
+			deptno = Integer.parseInt(scanner.nextLine());
+			sql = "update emp set ename = '"+ename+"', job = '"
+				+job+"', mgr = "+mgr+", sal = "+sal+", comm = "
+				+comm+", deptno = "+deptno+" where empno = "+empno;
+			int result = stmt.executeUpdate(sql);			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 	}
 	
 	private void deleteData(Connection connection) {
+		System.out.println("삭제할 사번을 입력하세요 : ");
+		empno = Integer.parseInt(scanner.nextLine());		
+		try {
+			stmt = connection.createStatement();
+			sql = "delete from emp where empno = " + empno;
+			int result = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	

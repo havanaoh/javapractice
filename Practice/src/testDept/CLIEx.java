@@ -96,8 +96,8 @@ public class CLIEx {
 		String dname = scanner.nextLine();
 		System.out.print("부서위치:");
 		String loc = scanner.nextLine();
-		String sql = "insert into dept(deptno, dname, loc) values ("
-		+deptno+", '"+dname+"', '"+loc+"')";
+		String sql = "insert into dept(deptno, dname, loc) values ('"
+		+deptno+"', '"+dname+"', '"+loc+"')";
 		try {
 			stmt = connection.createStatement();
 			int result = stmt.executeUpdate(sql);
@@ -114,7 +114,7 @@ public class CLIEx {
     	System.out.print("부서이름 :");
     	dname = scanner.nextLine();
     	System.out.print("부서위치 :");
-    	dname = scanner.nextLine();
+    	loc = scanner.nextLine();
     	try {
 			stmt = connection.createStatement();
 			sql = "update dept set dname = '"+dname+"', loc = '"+loc
