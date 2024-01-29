@@ -97,7 +97,8 @@ public class WinEmp extends JFrame {
 		bt1.addActionListener(new ActionListener() {			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				select();				
+				select();
+				clearTextField();
 			}
 		});
 		bt2.addActionListener(new ActionListener() {			
@@ -117,7 +118,8 @@ public class WinEmp extends JFrame {
 		bt4.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				update();				
+				update();
+				search();
 			}
 		});
 		bt5.addActionListener(new ActionListener() {			
@@ -125,6 +127,7 @@ public class WinEmp extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				delete();
 				select();
+				clearTextField();
 			}
 		});
 	}
@@ -175,6 +178,20 @@ public class WinEmp extends JFrame {
 	}
 	
 	public void update() {
+		String sql = "update emp set ename = '" + tfename.getText() 
+		+"', job = '" + tfjob.getText() + "', mgr = " 
+		+ Integer.parseInt(tfmgr.getText())+", sal = "
+		+ Double.parseDouble(tfsal.getText())+ ", comm = "
+		+ Double.parseDouble(tfcomm.getText())+", deptno = "
+		+ Integer.parseInt(tfdeptno.getText())+" where empno = "
+		+ Integer.parseInt(tfempno.getText()); 
+		try {
+			stmt = conn.createStatement();
+			int rs = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 	}
 	
@@ -196,14 +213,14 @@ public class WinEmp extends JFrame {
 				String str = empno+"\t"+ename+"\t"+job+"\t"+mgr+"\t"
 				+hiredate+"\t"+sal+"\t"+comm+"\t"+deptno+"\n";
 				ta.append(str);
-				tfempno.setText(empno+"");
+				tfempno.setText(String.valueOf(empno));
 				tfename.setText(ename);
 				tfjob.setText(job);
-				tfmgr.setText(mgr+"");
+				tfmgr.setText(String.valueOf(mgr));
 				tfhiredate.setText(hiredate);
-				tfsal.setText(tfsal+"");
-				tfcomm.setText(tfcomm+"");
-				tfdeptno.setText(tfdeptno+"");
+				tfsal.setText(String.valueOf(sal));
+				tfcomm.setText(String.valueOf(comm));
+				tfdeptno.setText(String.valueOf(deptno));
 				}else {
 					tfempno.setText("");
 					tfename.setText("");
@@ -223,6 +240,16 @@ public class WinEmp extends JFrame {
 	}
 	
 	public void delete() {
+		int empno = Integer.parseInt(tfempno.getText());
+		try {
+			stmt = conn.createStatement();
+			String sql = "delete from emp where empno = " + empno;
+			int rs = stmt.executeUpdate(sql);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		
 	}
 	
