@@ -259,3 +259,14 @@ public class WinEmp extends JFrame {
 	}
 
 }
+
+	// https://github.com/havanaoh/javapractice/blob/master/Practice/src/testEmp/WinEmp.java
+	// 새로운 사원정보 입력 후 반영여부 확인하기 위해 전체 데이터 확인
+	// 이름 검색시 textfield에 다른 정보도 입력되어 수정, 삭제가 용이하게 설정함
+	// 사번과 입사일 변경되면 안되기 때문에 다른 정보 입력해도 반영되지않음
+	// 수정시 반영된 결과 textarea에서 바로 확인할 수 있게함
+	// 삭제 후 정확히 삭제됐는지 전체 데이터 확인할 수 있게 반영
+	
+
+
+

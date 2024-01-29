@@ -142,7 +142,7 @@ public class EmpCLIEx {
 	}
 	
 	private void updateData(Connection connection) {
-		System.out.println("수정할 사원 정보를 입력하세요");
+		System.out.println("수정할 사원 번호를 입력하세요");
 		empno = Integer.parseInt(scanner.nextLine());
 		try {
 			stmt = connection.createStatement();
@@ -168,6 +168,7 @@ public class EmpCLIEx {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		
+		
 	}
 	
 	private void deleteData(Connection connection) {
@@ -185,7 +186,12 @@ public class EmpCLIEx {
 	}
 	
 	
-	
+	// https://github.com/havanaoh/javapractice/blob/master/Practice/src/testEmp/EmpCLIEx.java
+	// view = 전체검색 / search = 이름검색 / insert = 삽입 / update = 수정 / delete = 삭제
+	// 1. 이름으로 사원 검색 가능
+	// 2. 데이터 수정시 사원 번호 입력 후 사원 번호, 입사일 제외 수정 가능 
+	// (사번과 입사일은 바뀔일이 없기에 제외함, 동명인이 있을 수 있어 이름보단 사번을 기준으로 둠)
+
 	
 	
 	
