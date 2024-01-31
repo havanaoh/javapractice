@@ -209,8 +209,8 @@ public class WinEmp extends JFrame {
 		String sql = "select * from emp where ename = '" + tfename.getText() + "'";
 		try {
 			ResultSet rs = stmt.executeQuery(sql);
-			ta.setText("");
-			if (rs.next()) {
+			ta.setText(""); // 텍스트 영역을 초기화합니다.
+			while (rs.next()) {
 				int empno = rs.getInt("empno");
 				String ename = rs.getString("ename");
 				String job = rs.getString("job");
@@ -230,7 +230,7 @@ public class WinEmp extends JFrame {
 				tfsal.setText(String.valueOf(sal));
 				tfcomm.setText(String.valueOf(comm));
 				tfdeptno.setText(String.valueOf(deptno));
-			} else {
+			} if (ta.getText().trim().isEmpty()) {
 				tfempno.setText("");
 				tfename.setText("");
 				tfjob.setText("");

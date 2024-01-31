@@ -180,13 +180,13 @@ public class EmpCLIEx {
 	}
 
 	// https://github.com/havanaoh/javapractice/blob/master/Practice/src/testEmp/EmpCLIEx.java
-	// view = 전체검색 / search = 이름검색 / insert = 삽입 / update = 수정 / delete = 삭제
 	// 숫자 입력으로 메뉴선택
 	// 1번 전체 사원 검색
 	// 2번 이름으로 사원 검색
 	// 3번 신입사원 등록
-	// 4번 사원 정보 수정시 사원 번호 입력 후 사원 번호, 입사일 제외 수정 가능
-	// (사번과 입사일은 바뀔일이 없기에 제외함, 동명인이 있을 수 있어 이름보단 사번을 기준으로 둠)
+	// 4번 사원 정보 수정시 사원 번호 입력 후 사원 번호, 입사일 제외
+	// 수정 가능 (사번과 입사일은 바뀌면 안된다 생각하여 제외함
+	// 동명인이 있을 수 있어 이름보단 사번을 기준으로 둠)
 	// 5번 퇴사 사원 정보 삭제
 
 }
