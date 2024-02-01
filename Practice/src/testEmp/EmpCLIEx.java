@@ -125,8 +125,10 @@ public class EmpCLIEx {
 		scanner.nextLine();
 		System.out.print("부서번호:");
 		deptno = Integer.parseInt(scanner.nextLine());
-		String sql = "insert into emp(empno, ename, mgr, hiredate, " + "sal , comm, deptno) values (" + empno + ", '"
-				+ ename + "', " + mgr + ", '" + hiredate + "', " + sal + ", " + comm + ", " + deptno + ")";
+		String sql = "insert into emp(empno, job, ename, mgr, hiredate, "
+				+ "sal , comm, deptno)\n values (" + empno + ", '" + job + "', '"
+				+ ename + "', " + mgr + ", '" + hiredate + "', " + sal + ", "
+				+ comm + ", " + deptno + ")";
 		try {
 			stmt = connection.createStatement();
 			int result = stmt.executeUpdate(sql);
@@ -158,6 +160,10 @@ public class EmpCLIEx {
 			sql = "update emp set ename = '" + ename + "', job = '" + job + "', mgr = " + mgr + ", sal = " + sal
 					+ ", comm = " + comm + ", deptno = " + deptno + " where empno = " + empno;
 			int result = stmt.executeUpdate(sql);
+			sql = "update emp set empno = " + empno + "(" + ename + ", " + job
+					+ ", 매니저 번호 : " + mgr + ", 월급 : " + sal + ", 성과금 : " + comm 
+					+ ", 부서번호 : " + deptno + ")" ;
+			System.out.println(sql);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
