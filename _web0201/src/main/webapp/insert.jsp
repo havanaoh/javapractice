@@ -29,5 +29,6 @@ if(result == 1){
 
 <a href="index.jsp">홈으로</a>
 <a href="select.jsp">전체 사원 확인</a>
+<%response.sendRedirect("select.jsp"); %>
 </body>
 </html>

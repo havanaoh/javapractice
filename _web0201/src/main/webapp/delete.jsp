@@ -20,6 +20,7 @@ PreparedStatement pstmt = conn.prepareStatement(sql);
 pstmt.setString(1, request.getParameter("ename"));
 pstmt.executeUpdate();
 %>삭제완료!
+<%response.sendRedirect("select.jsp"); %>
 <a href="index.jsp">홈으로</a>
 </body>
 </html>
