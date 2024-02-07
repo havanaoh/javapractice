@@ -1,0 +1,65 @@
+@charset "utf-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Monoton&family=Nanum+Pen+Script&display=swap');
+
+
+/* h1{
+    font-weight: normal;
+    color: blueviolet;
+    font-size: 60px;
+}
+
+p span{
+    font-weight: bold;
+    color: aqua;
+}
+
+article h1{
+    font-size: 60px;
+}
+
+article p{
+    font-size: 30px;
+}
+
+article a{
+    font-size: 15px;
+} */
+
+/* html{
+    font-size: 16px;
+}
+
+article h1{
+    font-size: 2rem;
+}
+
+article p{
+    font-size: 1rem;
+}
+
+article a{
+    font-size: 0.8rem;
+} */
+
+html{
+    font-size: 16px;
+}
+article{
+    font-size: 40px;
+}
+article h1{
+    font-size: 3em;
+}
+article p{
+    font-size: 1em;
+}
+article a{
+    font-size: 0.8em;
+}
+
+
+p#txt{
+    font-size: 32px;
+    font-family: 'Monoton', sans-serif;
+}
