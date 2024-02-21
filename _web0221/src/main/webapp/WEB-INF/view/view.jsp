@@ -1,6 +1,14 @@
+<%@page import="dto.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	Member member = (Member)session.getAttribute("member");
+	if(member == null){
+		response.sendRedirect("loginForm.jsp");
+	}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,11 +45,11 @@
 </table>
 
 <br>
-<input type="button" value="목록보기" onclick="location.href='list.jsp'">
+<input type="button" value="목록보기" onclick="location.href='list.do'">
 <input type="button" value="수정"
-       onclick="location.href='write.jsp?num=${board.num}'">
+       onclick="location.href='write.jsp?num=${bd.num}'">
 <input type="button" value="삭제"
-       onclick="location.href='delete.jsp?num=${board.num}'">
+       onclick="location.href='delete.jsp?num=${bd.num}'">
 
 </body>
 </html>
