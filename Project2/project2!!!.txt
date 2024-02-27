@@ -1,0 +1,32 @@
+project2!!!
+
+create SEQUENCE seq_member;
+
+create SEQUENCE seq_board;
+
+create table member(
+    memberno number PRIMARY key,
+    id varchar2(20) unique,
+    email varchar2(40) not null,
+    name varchar2(20) not null
+);
+
+create table board (
+    boardno number PRIMARY key,
+    title varchar2(100) not null,
+    content varchar2(2000),
+    regtime date not null,
+    hits number not null,
+    memberno number REFERENCES member(memberno)
+);
+
+insert into member (memberno, id, email, name)
+values (SEQ_MEMBER.nextval, 'admin', 'admin@korea.com', '관리자');
+
+insert into board(boardno, title, content, regtime,
+hits, memberno) values (SEQ_BOARD.nextval, '제목1',
+'내용1', sysdate, 0, 1);
+
+select b.boardno, m.name, b.title, b.regtime
+  from member m, board b
+  where m.memberno = b.memberno
