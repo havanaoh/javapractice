@@ -12,6 +12,7 @@ import mvjsp.jdbc.JdbcUtil;
 
 public class MemberDao {
 	private static MemberDao instance = new MemberDao();
+	
 	public static MemberDao getInstance() {
 		return instance;
 	}
@@ -53,10 +54,76 @@ public class MemberDao {
 		}	finally {
 			JdbcUtil.close(rs);
 			JdbcUtil.close(pstmt);
+		}		
+		return list;
+	}
+	
+	public int insert(Connection conn, Member member) {
+		String sql = "insert into member(memberno, id, email, name) values (seq_member.nextval, ?, ?, ?)";
+		try (PreparedStatement pstmt = conn.prepareStatement(sql);
+			){
+			pstmt.setString(1, member.getId());
+			pstmt.setString(2, member.getEmail());
+			pstmt.setString(3, member.getName());			
+			return pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
-		
-		
-		return list;
+		return 0;
+	}
+
+	public int update(Connection conn, Member member) {
+		String sql = "update member set email = ?, name = ? where memberno = ?";
+	    try ( 
+	        PreparedStatement pstmt = conn.prepareStatement(sql);            
+	    ) {
+	        
+	        // 쿼리 실행	    	
+	    	pstmt.setString(1, member.getEmail());
+	    	pstmt.setString(2, member.getName());
+	    	pstmt.setInt(3, member.getMemberno());
+	        return pstmt.executeUpdate();
+	    
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    } 
+		return 0;
+	}
+	
+	public int delete(Connection conn, int memberno) {
+		String sql = "delete from member where memberno = ? ";
+	    try ( 
+	        PreparedStatement pstmt = conn.prepareStatement(sql);            
+	    ) {	        
+	        // 쿼리 실행
+	    	pstmt.setInt(1, memberno);	    	
+	        return pstmt.executeUpdate();
+	    
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    } 
+		return 0;
+	}
+	
+	public Member select(Connection conn, int memberno) {
+		Member member = null;
+		String sql = "select * from member where memberno = ? ";
+		ResultSet rs = null;
+		try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setInt(1, memberno);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				member = new Member(rs.getInt("memberno"), rs.getString("id"), rs.getString("email"),
+						rs.getString("name"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			JdbcUtil.close(rs);
+		}
+		return member;
 	}
 }

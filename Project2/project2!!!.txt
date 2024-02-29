@@ -30,3 +30,9 @@ hits, memberno) values (SEQ_BOARD.nextval, '제목1',
 select b.boardno, m.name, b.title, b.regtime
   from member m, board b
   where m.memberno = b.memberno
+
+
+delete from board where memberno = 5;
+delete from member where memberno = 5;
+
+
