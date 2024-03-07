@@ -6,20 +6,20 @@
 
 <%
    String id = request.getParameter("id");
-   String email = request.getParameter("pw");
+      String email = request.getParameter("pw");
 
-   Member member = MemberDao.getInstance().selectForLogin(id, email);
-		   
-		   
-   
-   // 그런 레코드가 있으면, 세션 속성을 등록하고, 메인 화면으로 돌아감
-   if (member != null) {
-   	session.setAttribute("userId", member.getId());
-   	session.setAttribute("userName", member.getName());
+      Member member = MemberDao.getInstance().selectForLogin(id, email);
+   		   
+   		   
+      
+      // 그런 레코드가 있으면, 세션 속성을 등록하고, 메인 화면으로 돌아감
+      if (member != null) {
+      	session.setAttribute("userId", member.getId());
+      	session.setAttribute("userName", member.getName());
 
-   	response.sendRedirect("login_main.jsp");
-   	return;
-   }
+      	response.sendRedirect("login_main.jsp");
+      	return;
+      }
    %>
 
 <!DOCTYPE html>

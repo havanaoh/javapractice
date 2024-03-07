@@ -2,115 +2,153 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.Statement;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 
-import dto.Board;
+import dto.BoardDto;
 
 public class BoardDao {
 
-	private static Connection conn;
-	private static BoardDao dao = new BoardDao();
+	// DB에 접속하여 Connection 객체를 반환
+	private Connection getConnection() throws Exception {
 
-	private BoardDao() {
+		Class.forName("oracle.jdbc.driver.OracleDriver");
+		Connection conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tigger");
+
+		return conn;
 	}
 
-	public static BoardDao getInstance() {
-		BoardDao.getConnection();
-		return dao;
+	// 현재 시간을 문자열 형태로 반환
+	private String getCurrentTime() {
+		return LocalDate.now() + " " + LocalTime.now().toString().substring(0, 8);
 	}
 
-	private static void getConnection() {
-		try {
-			Class.forName("oracle.jdbc.driver.OracleDriver");
-			conn = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "scott", "tigger");
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+	// 게시글 갯수 얻기
+	public int getNumRecords() {
+		int numRecords = 0;
 
-	public ArrayList<Board> selectList() {
-		ArrayList<Board> list = new ArrayList<Board>();
-		String sql = "select * from board order by num desc";
-		PreparedStatement pstmt;
-		try {
-			pstmt = conn.prepareStatement(sql);
-			ResultSet rs = pstmt.executeQuery();
+		try (Connection conn = getConnection();
+				Statement stmt = conn.createStatement();
 
-			while (rs.next()) {
-				Board board = new Board(rs.getInt("boardno"), rs.getString("title"), rs.getString("content"),
-						rs.getString("regtime"), rs.getInt("hits"), rs.getInt("memberno"));
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return list;
-	}
-
-	public Board selectOne(int num, boolean inc) {
-		Board board = null;
-		String sql = "select * from board where boardno = ?";
-		PreparedStatement pstmt;
-
-		try {
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			ResultSet rs = pstmt.executeQuery();
+				ResultSet rs = stmt.executeQuery("select count(*) from board");) {
 			if (rs.next()) {
-				board = new Board(rs.getInt("boardno"), rs.getString("title"), rs.getString("content"),
-						rs.getString("regtime"), rs.getInt("hits"), rs.getInt("memberno"));
+				numRecords = rs.getInt(1);
 			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return board;
+
+		return numRecords;
 	}
 
-	public int delete(int boardnum) {
-		int result = 0;
-		try (PreparedStatement pstmt = conn.prepareStatement("delete from board where boardnum = ? " + boardnum)) {
-			result = pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+	// 게시글 리스트 읽기
+	public ArrayList<BoardDto> selectList(int start, int listSize) {
+
+		ArrayList<BoardDto> dtoList = new ArrayList<BoardDto>();
+
+		try (Connection conn = getConnection();
+				Statement stmt = conn.createStatement();
+
+				ResultSet rs = stmt.executeQuery(String.format(
+						"SELECT * FROM (select * from board NATURAL JOIN member)" 
+						+ "WHERE ROWNUM BETWEEN %d AND %d",
+						start, listSize));) {
+			while (rs.next()) {
+
+				// 새 DTO 객체를 만들고 글 데이터를 이 객체에 저장
+				BoardDto dto = new BoardDto();
+
+				dto.setBoardno(rs.getInt("boardno"));
+				dto.setName(rs.getString("name"   ));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setRegtime(rs.getString("regtime"));
+				dto.setHits(rs.getInt("hits"));
+
+				// 이 DTO 객체를 ArrayList에 추가
+				dtoList.add(dto);
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
+
+		return dtoList;
 	}
 
-	public int insert(Board board) {
-		String sql = "insert into board " + "(boardno, title, content, regtime, hits)" + "value (?, ?, ?, sysdate, 0)";
+	// 지정된 글 번호를 가진 레코드 읽기
+	// hitsIncreased가 true이면 해당 글의 조회수를 1 증가시킴
+	// false이면 조회수를 증가시키지 않음
+	public BoardDto selectOne(int boardno, boolean hitsIncreased) {
 
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setInt(1, board.getBoardno());
-			pstmt.setString(2, board.getTitle());
-			pstmt.setString(3, board.getContent());
-			return pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		BoardDto dto = new BoardDto();
+
+		try (Connection conn = getConnection();
+				Statement stmt = conn.createStatement();
+
+				ResultSet rs = stmt
+						.executeQuery("select * from board NATURAL JOIN member where boardno =" + boardno);) {
+			if (rs.next()) {
+
+				// 글 데이터를 DTO에 저장
+				dto.setBoardno(rs.getInt("boardno"));
+				dto.setName(rs.getString("name"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setRegtime(rs.getString("regtime"));
+				dto.setHits(rs.getInt("hits"));
+
+				// 이글의 조회수를 증가시켜야 하는 경우
+				// (글 보기 화면을 위해 읽을 때)이면 조회수 1 증가
+				if (hitsIncreased) {
+					stmt.executeUpdate("update board set hits=hits+1 where boardno =" + boardno);
+				}
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
+
+		return dto;
 	}
 
-	public int update(Board board) {
-		String sql = "update board set title = ?, content = ?, " + "regtime = sysdate where boardno = ?";
+	// DTO에 담긴 내용으로 새로운 레코드 저장
+	public void insertOne(BoardDto dto) {
 
-		try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-			pstmt.setString(1, board.getTitle());
-			pstmt.setString(2, board.getContent());
-			pstmt.setString(3, board.getRegtime());
-			pstmt.setInt(4, board.getBoardno());
-			return pstmt.executeUpdate();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+		try (Connection conn = getConnection(); Statement stmt = conn.createStatement();) {
+			stmt.executeUpdate(String.format(
+					"insert into board (boardno, title, content, regtime, hits, memberno)"
+							+ "values (SEQ_BOARD.nextval, '%s', '%s', sysdate, 0, '%d')",
+					dto.getTitle(), dto.getContent(), dto.getMemberno()));
+
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return 0;
 	}
 
+	// DTO에 담긴 내용으로 게시글 데이터 업데이트
+	public void updateOne(BoardDto dto) {
+
+		try (Connection conn = getConnection(); Statement stmt = conn.createStatement();) {
+			stmt.executeUpdate(
+					String.format("update board set title='%s',content='%s', regtime=sysdate "
+							+ "where boardno=%d",
+							dto.getTitle(), dto.getContent(), dto.getBoardno()));
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	// 지정된 글 번호의 레코드 삭제
+	public void deleteOne(int boardno) {
+
+		try (Connection conn = getConnection(); Statement stmt = conn.createStatement();) {
+			stmt.executeUpdate("delete from board where boardno=" + boardno);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

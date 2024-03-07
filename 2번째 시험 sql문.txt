@@ -1,0 +1,21 @@
+String sql = "select name from board NATURAL JOIN member where boardno = ?";
+
+dto.setWriter (rs.getString("writer" ));
+
+
+"SELECT * FROM (SELECT * FROM board ORDER BY boardno DESC) WHERE ROWNUM BETWEEN %d AND %d",
+
+
+select *
+from (select * from board NATURAL JOIN member order by boardno)
+where rownum 
+
+
+insert into board (boardno, title, content, regtime, hits, memberno)
+VALUES (SEQ_BOARD.nextval,'제목 테스트', '테스트하지롱', sysdate, 0, 28);
+
+SELECT * FROM (SELECT * FROM board ORDER BY boardno DESC)WHERE ROWNUM BETWEEN 1 AND 3
+
+
+SELECT * FROM (select * from board NATURAL JOIN member) WHERE ROWNUM BETWEEN %d AND %d
+

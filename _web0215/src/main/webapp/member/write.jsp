@@ -6,7 +6,7 @@
 <%@ page import="java.sql.*" %>
 
 <%
-    // 글 번호 값 얻기, 주어지지 않았으면 0으로 설정
+// 글 번호 값 얻기, 주어지지 않았으면 0으로 설정
     String tmp = request.getParameter("num");
     int num = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp)
                                                 : 0;

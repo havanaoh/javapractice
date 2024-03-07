@@ -6,7 +6,7 @@
     
 <%@ page import="java.sql.*" %>
 <%
-	String memberId = (String)session.getAttribute("MEMBERID");
+String memberId = (String)session.getAttribute("MEMBERID");
 	if (memberId == null) {
 		response.sendRedirect("sessionLoginForm.jsp");
 	}

@@ -6,7 +6,7 @@
 <%@ page import="java.sql.*" %>
 
 <%
-    // 지정된 글 번호 얻기
+// 지정된 글 번호 얻기
     int num = Integer.parseInt(request.getParameter("num"));
 
     // 게시글 데이터를 담을 변수 정의
