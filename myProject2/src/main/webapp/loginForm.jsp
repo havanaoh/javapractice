@@ -9,7 +9,7 @@
 <body>
 <form action="login">
 아이디 : <input type="text" name="id"><br>
-이메일 : <input type="text" name="pw"><br>
+이메일 : <input type="text" name="email"><br>
 <input type="submit">
 </form>
 </body>

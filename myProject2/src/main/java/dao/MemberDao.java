@@ -53,7 +53,8 @@ public class MemberDao {
             Statement stmt = conn.createStatement();
 
             ResultSet rs = stmt.executeQuery(String.format(
-                    "select * from member order by memberno desc limit %d, %d",
+                    "select * from (select * from member order "
+                    + "by memberno desc) where rownum between %d and %d",
                     start, listSize));
         ) {
             while (rs.next()) {
@@ -104,17 +105,17 @@ public class MemberDao {
     }
     
  // 지정된 멤버 id, pw를 가진 레코드 읽기
-    public MemberDto selectMember(String id, String pw) {
+    public MemberDto selectMember(String id, String email) {
 
         MemberDto dto = new MemberDto();
-        String sql = "select * from member where id=? and pw=?";
+        String sql = "select * from member where id=? and email=?";
         try (
             Connection conn = getConnection();
             PreparedStatement pstmt = 
             		conn.prepareStatement(sql);
         ) {
         	pstmt.setString(1, id);
-        	pstmt.setString(2, pw);
+        	pstmt.setString(2, email);
         	ResultSet rs = pstmt.executeQuery();
             if (rs.next()) {
 
@@ -140,8 +141,8 @@ public class MemberDao {
         ) {
             stmt.executeUpdate(String.format(
                     "insert into member " +
-                    "(id, pw, name)" +
-                    "values ('%s', '%s', '%s')",
+                    "(memberno, id, email, name)" +
+                    "values (SEQ_member.nextval, '%s', '%s', '%s')",
                     dto.getId(), dto.getEmail(), dto.getName()));
 
         } catch(Exception e) {

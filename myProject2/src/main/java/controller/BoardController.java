@@ -110,7 +110,7 @@ public class BoardController extends HttpServlet {
         	view = "loginForm.jsp";
         } else if (com.equals("/login")) {
         	String id = request.getParameter("id");
-        	String pw = request.getParameter("pw");
+        	String pw = request.getParameter("email");
         	MemberDto memberDto = new MemberDao().selectMember(id, pw);
         	if (memberDto.getMemberno() == 0) {
         		System.out.println("로그인 실패");

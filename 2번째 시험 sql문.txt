@@ -19,3 +19,11 @@ SELECT * FROM (SELECT * FROM board ORDER BY boardno DESC)WHERE ROWNUM BETWEEN 1 
 
 SELECT * FROM (select * from board NATURAL JOIN member) WHERE ROWNUM BETWEEN %d AND %d
 
+admin 로그인시 멤버 관리 가능
+본인 로그인시 탈퇴만 가능
+
+게시물 리스트 보이고 상단에 회원 정보 수정버튼 만들면 될라나
+
+
+update dept_tcl set dname = 'DATABASE' 
+where deptno = 30
