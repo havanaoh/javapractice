@@ -20,7 +20,7 @@ import spring.WrongIdPasswordException;
 
 public class MainForSpring {
 
-	private static ApplicationContext ctx = null;
+private static ApplicationContext ctx = null;
 	
 	public static void main(String[] args) throws IOException {
 		ctx = new AnnotationConfigApplicationContext(AppCtx.class);
@@ -34,16 +34,16 @@ public class MainForSpring {
 				System.out.println("종료합니다.");
 				break;
 			}
-			if (command.startsWith("new ")) {
+			if (command.startsWith("new")) {
 				processNewCommand(command.split(" "));
 				continue;
-			} else if (command.startsWith("change ")) {
+			} else if (command.startsWith("change")) {
 				processChangeCommand(command.split(" "));
 				continue;
 			} else if (command.equals("list")) {
 				processListCommand();
 				continue;
-			} else if (command.startsWith("info ")) {
+			} else if (command.startsWith("info")) {
 				processInfoCommand(command.split(" "));
 				continue;
 			} else if (command.equals("version")) {

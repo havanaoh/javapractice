@@ -69,7 +69,7 @@ public class BoardController extends HttpServlet {
             String writer  = request.getParameter("writer" );
             String title   = request.getParameter("title"  );
             String content = request.getParameter("content");
-            String num = request.getParameter("memberno");
+            String num = request.getParameter("num");
             int memberno = Integer.parseInt(num);
 
             try {
@@ -83,7 +83,7 @@ public class BoardController extends HttpServlet {
 
         } else if (com.equals("/update")){
             request.setCharacterEncoding("utf-8");
-            int num = Integer.parseInt(request.getParameter("num"));
+            int num = Integer.parseInt(request.getParameter("memberno"));
             String writer  = request.getParameter("writer" );
             String title   = request.getParameter("title"  );
             String content = request.getParameter("content");

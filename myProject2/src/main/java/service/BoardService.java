@@ -66,18 +66,20 @@ public class BoardService {
         return new BoardDao().selectOne(num, false);
     }
 
-    public void writeMsg(String title, String content, int memberno)
+    public void writeMsg(String name, String title, String content, int memberno)
             throws Exception {
 
-        if (title   == null || title.length()   == 0 ||
+        if (name  == null || name.length()  == 0 ||
+            title   == null || title.length()   == 0 ||
             content == null || content.length() == 0) {
 
            throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
         }
 
-        BoardDto dto = new BoardDto();        
-        dto.setTitle  (title  );
-        dto.setContent(content);
+        BoardDto dto = new BoardDto();
+        dto.setName    (name);
+        dto.setTitle   (title);
+        dto.setContent (content);
         dto.setMemberno(memberno);
         
         new BoardDao().insertOne(dto);

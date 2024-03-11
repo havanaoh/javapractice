@@ -39,7 +39,7 @@
 
     <br>
 
-    <input type="submit" value="저장">
+    <input type="submit" value="저장" >
     <input type="button" value="취소" onclick="history.back()">
 </form>
 

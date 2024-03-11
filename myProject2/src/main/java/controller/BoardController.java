@@ -70,14 +70,15 @@ public class BoardController extends HttpServlet {
             view = "write.jsp";
 
         } else if (com.equals("/insert")){
-            request.setCharacterEncoding("utf-8");            
+            request.setCharacterEncoding("utf-8");
+            String writer  = request.getParameter("writer" );
             String title   = request.getParameter("title"  );
             String content = request.getParameter("content");
-            String num = request.getParameter("memberno");
-            int memberno = Integer.parseInt(num);
+//          String num = request.getParameter("num");
+            int memberno = 1;
 
             try {
-                new BoardService().writeMsg(title, content, memberno);
+                new BoardService().writeMsg(writer, title, content, memberno);
                 view = "redirect:list";
 
             } catch(Exception e) {
@@ -120,10 +121,9 @@ public class BoardController extends HttpServlet {
         		HttpSession session = request.getSession();
         		session.setAttribute("member", memberDto);
         		view = "redirect:list";
-        	}
-        	
-        }
-
+        	}        	
+        } 
+        
         // view에 담긴 문자열에 따라 포워딩 또는 리다이렉팅
         if (view.startsWith("redirect:")) {
             response.sendRedirect(view.substring(9));

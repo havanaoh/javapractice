@@ -2,9 +2,13 @@ package spring;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 public class MemberListPrinter {
 
-	private MemberDao memberDao;
+private MemberDao memberDao;
+	
+	
 	private MemberPrinter printer;
 
 	public MemberListPrinter() {
@@ -20,11 +24,20 @@ public class MemberListPrinter {
 		members.forEach(m -> printer.print(m));
 	}
 
+	@Autowired
 	public void setMemberDao(MemberDao memberDao) {
 		this.memberDao = memberDao;
 	}
 	
+	
+//	public void setMemberPrinter(MemberPrinter printer) {
+//		this.printer = printer;
+//	}
+	
+	@Autowired
+//	@Qualifier("summaryPrinter")
 	public void setMemberPrinter(MemberSummaryPrinter printer) {
 		this.printer = printer;
 	}
+	
 }
