@@ -130,9 +130,11 @@ public class BoardDao {
 	// DTO에 담긴 내용으로 게시글 데이터 업데이트
 	public void updateOne(BoardDto dto) {
 
-		try (Connection conn = getConnection(); Statement stmt = conn.createStatement();) {
-			stmt.executeUpdate(
-					String.format("update board set title='%s',content='%s', regtime=sysdate "
+		try (Connection conn = getConnection(); 
+			Statement stmt = conn.createStatement();
+		) {
+			stmt.executeUpdate(String.format(
+					"update board set title='%s',content='%s', regtime=sysdate "
 							+ "where boardno=%d",
 							dto.getTitle(), dto.getContent(), dto.getBoardno()));
 

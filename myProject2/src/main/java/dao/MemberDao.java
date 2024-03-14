@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+import dto.BoardDto;
 import dto.MemberDto;
 
 public class MemberDao {
@@ -91,7 +92,7 @@ public class MemberDao {
         ) {
             if (rs.next()) {
 
-                // 글 데이터를 DTO에 저장
+                // 멤버 데이터를 DTO에 저장
             	dto.setMemberno(rs.getInt("memberno"));
                 dto.setId(rs.getString("id"));
                 dto.setEmail(rs.getString("email"));
@@ -152,19 +153,18 @@ public class MemberDao {
 
     // DTO에 담긴 내용으로 멤버 데이터 업데이트
     public void updateOne(MemberDto dto) {
+    	System.out.println(dto);
+		try (Connection conn = getConnection(); 
+			Statement stmt = conn.createStatement();
+		) {
+			stmt.executeUpdate(String.format(
+					"update member set name='%s',email='%s' where memberno=%d",
+							dto.getName(), dto.getEmail(), dto.getMemberno()));
 
-        try (
-            Connection conn = getConnection();
-            Statement stmt = conn.createStatement();
-        ) {
-            stmt.executeUpdate(String.format(
-                    "update member set email='%s', name='%s' where memberno=%d",
-                    dto.getEmail(), dto.getName(), dto.getMemberno()));
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-    }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
     // 지정된 멤버 번호의 레코드 삭제
     public void deleteOne(int memberno) {

@@ -1,9 +1,16 @@
 
+<%@page import="dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+<%
+	MemberDto member = (MemberDto)session.getAttribute("member");
+	if(member == null){
+		response.sendRedirect("loginForm.jsp");
+	}
+	request.setAttribute("num", member.getMemberno());
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +33,8 @@
 </head>
 <body>
 
+<input type="button" value="마이페이지"
+       onclick="location.href='mview?num=${num}'">
 <table>
     <tr>
         <th class="boardno"    >번호    </th>

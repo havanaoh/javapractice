@@ -27,3 +27,55 @@ admin 로그인시 멤버 관리 가능
 
 update dept_tcl set dname = 'DATABASE' 
 where deptno = 30
+
+
+
+create SEQUENCE seq_member;
+
+create SEQUENCE seq_board;
+
+create table member(
+    memberno number PRIMARY key,
+    id varchar2(20) unique,
+    email varchar2(40) not null,
+    name varchar2(20) not null
+);
+
+create table board (
+    boardno number PRIMARY key,
+    title varchar2(100) not null,
+    content varchar2(2000),
+    regtime date not null,
+    hits number not null,
+    memberno number REFERENCES member(memberno)
+);
+
+insert into member (memberno, id, email, name)
+values (SEQ_MEMBER.nextval, 'admin', 'admin@korea.com', '관리자');
+
+insert into board(boardno, title, content, regtime,
+hits, memberno) values (SEQ_BOARD.nextval, '제목1',
+'내용1', sysdate, 0, 1);
+
+select b.boardno, m.name, b.title, b.regtime
+  from member m, board b
+  where m.memberno = b.memberno
+
+
+delete from board where memberno = 5;
+delete from member where memberno = 5;
+
+
+protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    // 데이터 생성 또는 처리
+    String data = "Hello, World!";
+    
+    // 데이터를 request 객체에 저장
+    request.setAttribute("myData", data);
+    
+    // 다른 작업 수행 또는 다른 페이지로 포워딩
+    RequestDispatcher dispatcher = request.getRequestDispatcher("result.jsp");
+    dispatcher.forward(request, response);
+}
+
+

@@ -87,18 +87,14 @@ public class BoardService {
 
     public void updateMsg(String title, String content, int boardno)
                     throws Exception {
-
         if (title   == null || title.length()   == 0 ||
             content == null || content.length() == 0) {
-
            throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
         }
-
         BoardDto dto = new BoardDto();
         dto.setBoardno(boardno);        
         dto.setTitle  (title  );
         dto.setContent(content);
-
         new BoardDao().updateOne(dto);
     }
 
