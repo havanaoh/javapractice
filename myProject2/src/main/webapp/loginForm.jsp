@@ -11,6 +11,8 @@
 아이디 : <input type="text" name="id"><br>
 이메일 : <input type="text" name="email"><br>
 <input type="submit">
+<input type="button" value="회원가입"
+       onclick="location.href='signUp.jsp'">
 </form>
 </body>
 </html>

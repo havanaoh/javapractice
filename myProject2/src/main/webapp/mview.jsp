@@ -5,11 +5,8 @@
 	MemberDto member = (MemberDto)session.getAttribute("member");
 	if(member == null){
 		response.sendRedirect("loginForm.jsp");
-	}
-	request.setAttribute("num", member.getMemberno());
-	request.setAttribute("name", member.getName());
-	request.setAttribute("email", member.getEmail());
-	request.setAttribute("id", member.getId());
+	}	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -42,9 +39,9 @@
 <br>
 <input type="button" value="목록보기" onclick="location.href='list'">
 <input type="button" value="수정"
-       onclick="location.href='mwrite?num=${num}'">
+       onclick="location.href='mwrite?num=${member.memberno}'">
 <input type="button" value="삭제"
-       onclick="location.href='mdelete?num=${num}'">
+       onclick="location.href='mdelete?num=${member.memberno}'">
 
 </body>
 </html>

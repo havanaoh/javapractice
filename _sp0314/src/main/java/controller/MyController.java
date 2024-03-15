@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import dto.LoginRequest;
 import service.GetMemberNumService;
@@ -29,7 +30,7 @@ public class MyController {
 		return "inputForm";
 	}
 		
-	@GetMapping("/result")
+	@PostMapping("/login")
 	public String result(LoginRequest loginRequest, Model model) {
 		String str = "가나다";
 		System.out.println(loginRequest.getId());

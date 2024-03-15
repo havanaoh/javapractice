@@ -111,13 +111,11 @@ public class BoardController extends HttpServlet {
         	if (memberDto.getMemberno() == 0) {
         		System.out.println("로그인 실패");
         		view = "redirect:loginForm";
-        	} else {
-        		System.out.println(memberDto);
+        	} else {        	
         		HttpSession session = request.getSession();
         		session.setAttribute("member", memberDto);
         		view = "redirect:list";
-        	}
-        	
+        	}     	
         }
 
         // view에 담긴 문자열에 따라 포워딩 또는 리다이렉팅

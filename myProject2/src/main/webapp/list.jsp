@@ -35,6 +35,8 @@
 
 <input type="button" value="마이페이지"
        onclick="location.href='mview?num=${num}'">
+<input type="button" value="로그아웃"
+       onclick="location.href='loginForm'">
 <table>
     <tr>
         <th class="boardno"    >번호    </th>

@@ -25,7 +25,7 @@ public class BoardController extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String view = null;
+		String view = "index.jsp";
 
 		// URL에서 프로젝트 이름 뒷 부분의 문자열 얻어내기
 		String uri = request.getRequestURI();
@@ -43,17 +43,14 @@ public class BoardController extends HttpServlet {
 
 		} else if (com.equals("/view")) {
 			int num = Integer.parseInt(request.getParameter("num"));
-
 			request.setAttribute("msg", new BoardService().getMsg(num));
 			view = "view.jsp";
-
+			
 		} else if (com.equals("/write")) {
 			String tmp = request.getParameter("num");
 			int boardno = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 0;
-
 			BoardDto dto = new BoardDto();
 			String action = "insert";
-
 			if (boardno > 0) {
 				dto = new BoardService().getMsgForWrite(boardno);
 				action = "update?boardno=" + boardno;
@@ -65,15 +62,12 @@ public class BoardController extends HttpServlet {
 
 		} else if (com.equals("/insert")) {
 			request.setCharacterEncoding("utf-8");
-			String writer = request.getParameter("writer");
+			String name = request.getParameter("name");
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			int memberno = Integer.parseInt(request.getParameter("num"));
-			
-//			int memberno = 1;
-
 			try {
-				new BoardService().writeMsg(writer, title, content, memberno);
+				new BoardService().writeMsg(name, title, content, memberno);
 				view = "redirect:list";
 
 			} catch (Exception e) {
@@ -83,12 +77,11 @@ public class BoardController extends HttpServlet {
 
 		} else if (com.equals("/update")) {
 			request.setCharacterEncoding("utf-8");
-			int boardno = Integer.parseInt(request.getParameter("boardno"));
-			String writer = request.getParameter("writer");
+			int num = Integer.parseInt(request.getParameter("boardno"));
 			String title = request.getParameter("title");
 			String content = request.getParameter("content");
 			try {
-				new BoardService().updateMsg(title, content, boardno);
+				new BoardService().updateMsg(title, content, num);
 				view = "redirect:list";
 			} catch (Exception e) {
 				request.setAttribute("errorMessage", e.getMessage());
@@ -97,66 +90,72 @@ public class BoardController extends HttpServlet {
 
 		} else if (com.equals("/delete")) {
 			int num = Integer.parseInt(request.getParameter("num"));
-
 			new BoardService().deleteMsg(num);
 			view = "redirect:list";
+			
 		} else if (com.equals("/loginForm")) {
 			view = "loginForm.jsp";
-		} else if (com.equals("/login") || com.equals("/")) {
+		} else if (com.equals("/login")) {
 			String id = request.getParameter("id");
-			String pw = request.getParameter("email");
-			MemberDto memberDto = new MemberDao().selectMember(id, pw);
+			String email = request.getParameter("email");			
+			MemberDto memberDto = new MemberDao().selectMember(id, email);
 			if (memberDto.getMemberno() == 0) {
+				System.out.println(id + email);
 				System.out.println("로그인 실패");
 				view = "redirect:loginForm";
-			} else {				
+			} else {
 				HttpSession session = request.getSession();
 				session.setAttribute("member", memberDto);
 				view = "redirect:list";
-			}
-			
+			}		
 			
 		} else if(com.equals("/mview")) {
 			int num = Integer.parseInt(request.getParameter("num"));			
-			request.setAttribute("msg", new MemberService().getMsg(num));
+			request.setAttribute("member", new MemberService().getMember(num));
 			view = "mview.jsp";
 			
 		} else if (com.equals("/mdelete")) {
 			int num = Integer.parseInt(request.getParameter("num"));
 			new MemberService().deleteMsg(num);
-			view = "redirect:list";
+			view = "redirect:loginForm";
 			
-		} else if (com.equals("/mupdate")) {
+		} else if(com.equals("/mwrite")) {
+			String tmp = request.getParameter("num");
+			int memberno = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 0;
+			MemberDto dto = new MemberDto();
+			
+			if (memberno > 0) {
+				dto = new MemberService().getMsgForWrite(memberno);				
+			}
+			request.setAttribute("member", dto);			
+			view = "mwrite.jsp";
+		}		
+		else if (com.equals("/mupdate")) {			
 			request.setCharacterEncoding("utf-8");
 			int memberno = Integer.parseInt(request.getParameter("num"));
-			String id = request.getParameter("id");
 			String name = request.getParameter("name");
 			String email = request.getParameter("email");
-			System.out.println("---------------------");
-			System.out.println(name+ " / " + email +" / " + memberno);
 			try {
-				new MemberService().updateMsg(id, name, email, memberno);
-				view = "redirect:mview?num=" + memberno;
-
+				new MemberService().updateMember(name, email, memberno);
+				view = "redirect:list";
+			} catch (Exception e) {
+				request.setAttribute("errorMessage", e.getMessage());
+				view = "errorBack.jsp";			
+			}
+		} else if (com.equals("/minsert")) {
+			request.setCharacterEncoding("utf-8");
+			String id = request.getParameter("id");
+			String email = request.getParameter("email");
+			String name = request.getParameter("name");
+			try {
+				new MemberService().signUp(id, email, name);
+				view = "redirect:loginForm";
 			} catch (Exception e) {
 				request.setAttribute("errorMessage", e.getMessage());
 				view = "errorBack.jsp";
 			}
-		} else if (com.equals("/mwrite")) {
-			String tmp = request.getParameter("num");
-			int memberno = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 0;
-
-			MemberDto dto = new MemberDto();
-			String action = "insert";
-
-			if (memberno > 0) {
-				dto = new MemberService().getMsgForWrite(memberno);
-				action = "update?memberno=" + memberno;
-			}
-
-			request.setAttribute("msg", dto);
-			request.setAttribute("action", action);
-			view = "mwrite.jsp";
+		} else if (com.equals("/aa")) {
+			view = "index.jsp";
 		}
 		
 		// view에 담긴 문자열에 따라 포워딩 또는 리다이렉팅

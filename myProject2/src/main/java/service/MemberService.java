@@ -48,12 +48,10 @@ public class MemberService {
 		return pgnList;
 	}
 
-	public MemberDto getMsg(int num) {
+	public MemberDto getMember(int num) {
 		MemberDto dto = new MemberDao().selectOne(num);
-
-		dto.setId(dto.getId().replace(" ", "&nbsp;"));
-		dto.setEmail(dto.getEmail().replace("  ", "&nbsp;").replace("\n", "<br>"));
-
+		dto.setId(dto.getId());
+		dto.setEmail(dto.getEmail());
 		return dto;
 	}
 
@@ -61,32 +59,31 @@ public class MemberService {
 		return new MemberDao().selectOne(num);
 	}
 
-	public void signUpMsg(int memberno, String id, String email, String name) throws Exception {
-
-		if (id == null || id.length() == 0 || email == null
-			|| email.length() == 0 || name == null || name.length() == 0) {
-			throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
+	public void signUp(String id, String email, String name) throws Exception {
+		if (id == null || id.length() == 0 || 
+			email == null || email.length() == 0 || 
+			name == null || name.length() == 0) 
+		{throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
 		}
 		MemberDto dto = new MemberDto();
 		dto.setName(name);
 		dto.setId(id);
 		dto.setEmail(email);
-		dto.setMemberno(memberno);
-
+		
 		new MemberDao().insertOne(dto);
 	}
 
-	public void updateMsg(String id, String email, String name, int memberno) throws Exception {
+	public void updateMember(String name, String email, int memberno) 
+			throws Exception {
 		System.out.println(name + email);
 		if (name == null || name.length() == 0 || 
 			email == null || email.length() == 0) {
 			throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
 		}
 		MemberDto dto = new MemberDto();
-		dto.setId(id);
-		dto.setEmail(email);
-		dto.setName(name);
 		dto.setMemberno(memberno);
+		dto.setEmail(email);
+		dto.setName(name);		
 		new MemberDao().updateOne(dto);
 	}
 

@@ -10,8 +10,8 @@ import dto.Pagination;
 
 public class BoardService {
 
-    private static final int listSize = 5;
-    private static final int paginationSize = 5;
+    private static final int listSize = 3;
+    private static final int paginationSize = 3;
 
     public ArrayList<BoardDto> getMsgList(int pageNo) {
        return new BoardDao().selectList((pageNo - 1) * listSize, listSize);
@@ -68,20 +68,16 @@ public class BoardService {
 
     public void writeMsg(String name, String title, String content, int memberno)
             throws Exception {
-
         if (name  == null || name.length()  == 0 ||
             title   == null || title.length()   == 0 ||
             content == null || content.length() == 0) {
-
            throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");
         }
-
         BoardDto dto = new BoardDto();
         dto.setName    (name);
         dto.setTitle   (title);
         dto.setContent (content);
         dto.setMemberno(memberno);
-        
         new BoardDao().insertOne(dto);
     }
 
@@ -94,7 +90,7 @@ public class BoardService {
         BoardDto dto = new BoardDto();
         dto.setBoardno(boardno);        
         dto.setTitle  (title  );
-        dto.setContent(content);
+        dto.setContent(content);        
         new BoardDao().updateOne(dto);
     }
 

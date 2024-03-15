@@ -60,6 +60,7 @@
          APR (HTTP/AJP) Connector: /docs/apr.html
          Define a non-SSL/TLS HTTP/1.1 Connector on port 8080
     -->
+ 
     <Connector connectionTimeout="20000" maxParameterCount="1000" port="8080" protocol="HTTP/1.1" redirectPort="8443"/>
     <!-- A "Connector" using the shared thread pool-->
     <!--
@@ -161,7 +162,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
       
-      <Context docBase="_spMvcPractice" path="/_spMvcPractice" reloadable="true" source="org.eclipse.jst.jee.server:_spMvcPractice"/><Context docBase="_sp0314" path="/_sp0314" reloadable="true" source="org.eclipse.jst.jee.server:_sp0314"/><Context docBase="myProject2" path="/myProject2" reloadable="true" source="org.eclipse.jst.jee.server:myProject2"/></Host>
+      <Context docBase="myProject2" path="/myProject2" reloadable="true" source="org.eclipse.jst.jee.server:myProject2"/></Host>
     </Engine>
   </Service>
 </Server>
