@@ -1,4 +1,7 @@
 
+<%@page import="dto.BoardDto"%>
+<%@page import="java.util.List"%>
+<%@page import="dao.BoardDao"%>
 <%@page import="dto.MemberDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -6,10 +9,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%
 	MemberDto member = (MemberDto)session.getAttribute("member");
-	if(member == null){
-		response.sendRedirect("loginForm.jsp");
-	}
+		if(member == null){
+			response.sendRedirect("loginForm2.jsp");
+		}
 	request.setAttribute("num", member.getMemberno());
+			
 %>
 <!DOCTYPE html>
 <html>
@@ -36,46 +40,34 @@
 <input type="button" value="마이페이지"
        onclick="location.href='mview?num=${num}'">
 <input type="button" value="로그아웃"
-       onclick="location.href='loginForm'">
+       onclick="location.href='loginForm2'">
+       
 <table>
     <tr>
-        <th class="boardno"    >번호    </th>
-        <th class="title"  >    제목    </th>
-        <th class="MEMBERNO" >  작성자  </th>
-        <th class="regtime">    작성일시</th>
-        <th                >    조회수  </th>
+        <th class="boardno" >    번호    </th>
+        <th class="title"   >    제목    </th>
+        <th class="MEMBERNO">    작성자  </th>
+        <th class="regtime" >    작성일시</th>
+        <th class="hits"    >    조회수  </th>
     </tr>
 
-    <c:forEach var="msg" items="${msgList}">
+    <c:forEach var="dto" items="${board}">
     <tr>
-        <td>${msg.boardno}</td>
+        <td>${dto.boardno}</td>
         <td style="text-align:left;">
-            <a href="view?num=${msg.boardno}&page=${param.page}">
-                ${msg.title}
+            <a href="view?num=${dto.boardno}">
+                ${dto.title}
             </a>
         </td>
-       	<td>${msg.name}</td>
-        <td>${msg.regtime}</td>
-        <td>${msg.hits}</td>
+       	<td>${dto.name}</td>
+        <td>${dto.regtime}</td>
+        <td>${dto.hits}</td>
     </tr>
-    </c:forEach>
+ 	 </c:forEach>
 </table>
 
 <br>
-<div style="width:680px; text-align:center;">
-    <c:forEach var="pgn" items="${pgnList}">
-         <a class="pgn" href="list?page=${pgn.pageNo}">
-             <c:choose>
-                 <c:when test="${pgn.curPage}">
-                     <u>${pgn.display}</u>
-                 </c:when>
-                 <c:otherwise>
-                     ${pgn.display}
-                 </c:otherwise>
-             </c:choose>
-         </a>&nbsp;
-    </c:forEach>
-</div>
+
 
 <br>
 <input type="button" value="글쓰기" onclick="location.href='write'">

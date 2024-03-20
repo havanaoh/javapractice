@@ -4,7 +4,7 @@ public class Pagination {
     
     private String display;
     private int pageNo;
-    private boolean curPage;
+    private boolean curPage; // 현재페이지
 
     public Pagination(String display, int pageNo, boolean curPage) {
         this.display = display;

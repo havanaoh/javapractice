@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<c:set var="contextPath" value="${pageContext.request.contextPath}"  />
+
+    
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
-  <head><script src="assets/js/color-modes.js"></script>
+  <head><script src="${pageContext.request.contextPath}/assets/js/color-modes.js"></script>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,7 +22,7 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
 
-<link href="assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="${pageContext.request.contextPath}/assets/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
       .bd-placeholder-img {
@@ -95,9 +100,10 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="sign-in.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/sign-in.css" rel="stylesheet">
   </head>
   <body class="d-flex align-items-center py-4 bg-body-tertiary">
+  
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
       <symbol id="check2" viewBox="0 0 16 16">
         <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
@@ -151,30 +157,31 @@
 
     
 <main class="form-signin w-100 m-auto">
-  <form>
-    <img class="mb-4" src="assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+  <form action="login">
+    <img class="mb-4" src="${pageContext.request.contextPath}/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">로그인 페이지 입니다</h1>
 
     <div class="form-floating">
-      <input type="text" class="form-control" id="floatingInput" placeholder="Id">
+      <input type="text" name = "id" class="form-control" 
+      id="floatingInput" placeholder="Id" >
       <label for="floatingInput">Id</label>
     </div>
     <div class="form-floating">
-      <input type="email" class="form-control" id="floatingPassword" placeholder="Email">
+      <input type="email" name = "email" class="form-control" id="floatingPassword" placeholder="Email">
       <label for="floatingPassword">Email</label>
     </div>
 
     <div class="form-check text-start my-3">
-      <input class="form-check-input" type="checkbox" value="remember-me" id="flexCheckDefault">
+      <input class="form-check-input" type="checkbox" name="autoLogin" id="flexCheckDefault">
       <label class="form-check-label" for="flexCheckDefault">
         Remember me
       </label>
     </div>
-    <button class="btn btn-primary w-100 py-2" type="submit">Sign in</button>
-    <p class="mt-5 mb-3 text-body-secondary">&copy; 2017–2023</p>
+    <button class="btn btn-primary w-100 py-2" type="submit">로그인</button><br>  
   </form>
+  <button class="btn btn-primary w-100 py-2" onclick="location.href='signUp.jsp'" >회원가입</button>
 </main>
-<script src="assets/dist/js/bootstrap.bundle.min.js"></script>
+<script src="${pageContext.request.contextPath}/assets/dist/js/bootstrap.bundle.min.js"></script>
 
     </body>
 </html>

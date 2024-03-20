@@ -24,24 +24,19 @@ public class BoardDao {
 
     // 게시글 갯수 얻기
     public int getNumRecords() {
-        int numRecords = 0;
-
-        try (
-            Connection conn = getConnection();
-            Statement stmt = conn.createStatement();
-
-            ResultSet rs = stmt.executeQuery(
-                    "select count(*) from board");
-        ) {
-            if (rs.next()) {
-                numRecords =  rs.getInt(1);
-            }
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        return numRecords;
-    }
+		int numRecords = 0;
+		try (Connection conn = getConnection();
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("select count(*) from board");
+		) {
+			if (rs.next()) {
+				numRecords = rs.getInt(1);
+				}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return numRecords;
+	}
 
     // 게시글 리스트 읽기
     public ArrayList<BoardDto> selectList(int start, int listSize) {

@@ -4,7 +4,7 @@
  <%
 	MemberDto member = (MemberDto)session.getAttribute("member");
 	if(member == null){
-		response.sendRedirect("loginForm.jsp");
+		response.sendRedirect("loginForm2.jsp");
 	}
 %>   
     

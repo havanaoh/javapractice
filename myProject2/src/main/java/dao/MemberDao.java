@@ -92,8 +92,7 @@ public class MemberDao {
             	dto.setMemberno(rs.getInt("memberno"));
                 dto.setId(rs.getString("id"));
                 dto.setEmail(rs.getString("email"));
-                dto.setName(rs.getString("name"));
-                System.out.println("selectone " + dto);
+                dto.setName(rs.getString("name"));                
             }
         } catch(Exception e) {
             e.printStackTrace();

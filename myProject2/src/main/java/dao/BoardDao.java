@@ -29,55 +29,90 @@ public class BoardDao {
 	// 게시글 갯수 얻기
 	public int getNumRecords() {
 		int numRecords = 0;
-
 		try (Connection conn = getConnection();
 				Statement stmt = conn.createStatement();
-
-				ResultSet rs = stmt.executeQuery("select count(*) from board");) {
+				ResultSet rs = stmt.executeQuery("select count(*) from board");
+		) {
 			if (rs.next()) {
 				numRecords = rs.getInt(1);
-			}
+				}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return numRecords;
 	}
 
 	// 게시글 리스트 읽기
-	public ArrayList<BoardDto> selectList(int start, int listSize) {
+	public ArrayList<BoardDto> selectList() {
 
 		ArrayList<BoardDto> dtoList = new ArrayList<BoardDto>();
 
 		try (Connection conn = getConnection();
 				Statement stmt = conn.createStatement();
 
-				ResultSet rs = stmt.executeQuery(String.format(
-						"SELECT * FROM (select * from board NATURAL JOIN member)" 
-						+ "WHERE ROWNUM BETWEEN %d AND %d",
-						start, listSize));) {
+				ResultSet rs = stmt.executeQuery
+						(String.format("select * from board natural join member order by boardno desc"
+							));
+				){				
 			while (rs.next()) {
-
 				// 새 DTO 객체를 만들고 글 데이터를 이 객체에 저장
 				BoardDto dto = new BoardDto();
-
 				dto.setBoardno(rs.getInt("boardno"));
-				dto.setName(rs.getString("name"   ));
+				dto.setName(rs.getString("name"));
 				dto.setTitle(rs.getString("title"));
 				dto.setContent(rs.getString("content"));
 				dto.setRegtime(rs.getString("regtime"));
 				dto.setHits(rs.getInt("hits"));
-
 				// 이 DTO 객체를 ArrayList에 추가
 				dtoList.add(dto);
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 		return dtoList;
 	}
 
+
+//		public ArrayList<BoardDto> selectList(int start, int listSize) {
+//
+//			ArrayList<BoardDto> dtoList = new ArrayList<BoardDto>();
+//
+//			try (Connection conn = getConnection();
+//					Statement stmt = conn.createStatement();
+//
+//					ResultSet rs = stmt.executeQuery
+//							(String.format("select * "
+//									+ "from (SELECT ROWNUM rn, b.*"
+//									+ "FROM (SELECT * FROM board ORDER BY boardno DESC) b)"
+//									+ "where rn BETWEEN ? and ?",
+//									start, listSize));)
+//					ResultSet rs = stmt.executeQuery(String.format
+//							("SELECT * FROM (select * from board "
+//							+ "NATURAL JOIN member)WHERE ROWNUM BETWEEN %d AND %d",
+//							start, listSize)); 
+//				{
+//				while (rs.next()) {
+//					// 새 DTO 객체를 만들고 글 데이터를 이 객체에 저장
+//					BoardDto dto = new BoardDto();
+//					dto.setBoardno(rs.getInt("boardno"));
+//					dto.setName(rs.getString("name"   ));
+//					dto.setTitle(rs.getString("title"));
+//					dto.setContent(rs.getString("content"));
+//					dto.setRegtime(rs.getString("regtime"));
+//					dto.setHits(rs.getInt("hits"));
+//					// 이 DTO 객체를 ArrayList에 추가
+//					dtoList.add(dto);
+//				}
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//			return dtoList;
+//		}
+	
+	
+	
+	
 	// 지정된 글 번호를 가진 레코드 읽기
 	// hitsIncreased가 true이면 해당 글의 조회수를 1 증가시킴
 	// false이면 조회수를 증가시키지 않음

@@ -21,7 +21,7 @@
 
     <header>
         <div class="inner">
-            <h1><a href="#">DCODLAB</a></h1>
+            <h1><a href="">DCODLAB</a></h1>
 
             <ul id="gnb">
                 <li><a href="#">DEPARTMENT</a></li>
@@ -34,8 +34,8 @@
             <ul class="util">
                 <li><a href="#">Contact</a></li>
                 <li><a href="#">Help</a></li>
-                <li><a href="#">Login</a></li>
-                <li><a href="#">Join</a></li>
+                <li><a href="loginForm2.jsp">Login</a></li>
+                <li><a href="signUp">Join</a></li>
                 <li><a href="#">Sitemap</a></li>
             </ul>
         </div>

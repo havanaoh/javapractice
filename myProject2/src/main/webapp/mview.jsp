@@ -4,7 +4,7 @@
 <%
 	MemberDto member = (MemberDto)session.getAttribute("member");
 	if(member == null){
-		response.sendRedirect("loginForm.jsp");
+		response.sendRedirect("loginForm2.jsp");
 	}	
 	
 %>
@@ -40,7 +40,7 @@
 <input type="button" value="목록보기" onclick="location.href='list'">
 <input type="button" value="수정"
        onclick="location.href='mwrite?num=${member.memberno}'">
-<input type="button" value="삭제"
+<input type="button" value="회원탈퇴"
        onclick="location.href='mdelete?num=${member.memberno}'">
 
 </body>

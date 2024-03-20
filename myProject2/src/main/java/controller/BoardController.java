@@ -1,14 +1,17 @@
 package controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.BoardDao;
 import dao.MemberDao;
 import dto.BoardDto;
 import dto.MemberDto;
@@ -34,12 +37,11 @@ public class BoardController extends HttpServlet {
 
 		// 주어진 URL에 따라 지정된 동작 수행
 		if (com.equals("/list")) {
-			String tmp = request.getParameter("page");
-			int pageNo = (tmp != null && tmp.length() > 0) ? Integer.parseInt(tmp) : 1;
-
-			request.setAttribute("msgList", new BoardService().getMsgList(pageNo));
-			request.setAttribute("pgnList", new BoardService().getPagination(pageNo));
-			view = "list.jsp";
+			BoardDao dao = new BoardDao();
+			List<BoardDto> list = dao.selectList();			
+			request.setAttribute("board", list);
+			
+            view = "list.jsp";
 
 		} else if (com.equals("/view")) {
 			int num = Integer.parseInt(request.getParameter("num"));
@@ -93,21 +95,31 @@ public class BoardController extends HttpServlet {
 			new BoardService().deleteMsg(num);
 			view = "redirect:list";
 			
-		} else if (com.equals("/loginForm")) {
-			view = "loginForm.jsp";
+		} else if (com.equals("/loginForm2")) {
+			view = "loginForm2.jsp";
 		} else if (com.equals("/login")) {
 			String id = request.getParameter("id");
-			String email = request.getParameter("email");			
+			String email = request.getParameter("email");
 			MemberDto memberDto = new MemberDao().selectMember(id, email);
-			if (memberDto.getMemberno() == 0) {
-				System.out.println(id + email);
+			
+			if (memberDto.getMemberno() == 0) {				
 				System.out.println("로그인 실패");
-				view = "redirect:loginForm";
+				view = "redirect:loginForm2";
 			} else {
 				HttpSession session = request.getSession();
-				session.setAttribute("member", memberDto);
+				session.setAttribute("member", memberDto);			
 				view = "redirect:list";
-			}		
+				
+				// 자동 로그인 체크박스 확인
+			    String autoLogin = request.getParameter("autoLogin");
+			    if ("on".equals(autoLogin)) {
+			        // 안전한 토큰 생성 로직 (여기서는 예시로 사용자 ID를 사용)
+			        String token = memberDto.getId(); // 실제 구현에서는 더 안전한 방법으로 토큰을 생성해야 함
+			        Cookie cookie = new Cookie("autoLogin", token);
+			        cookie.setMaxAge(60 * 60 * 24 * 7); // 쿠키의 유효 시간을 7일로 설정
+			        response.addCookie(cookie); // 응답에 쿠키 추가
+			    }
+			}	
 			
 		} else if(com.equals("/mview")) {
 			int num = Integer.parseInt(request.getParameter("num"));			
@@ -117,7 +129,7 @@ public class BoardController extends HttpServlet {
 		} else if (com.equals("/mdelete")) {
 			int num = Integer.parseInt(request.getParameter("num"));
 			new MemberService().deleteMsg(num);
-			view = "redirect:loginForm";
+			view = "redirect:loginForm2";
 			
 		} else if(com.equals("/mwrite")) {
 			String tmp = request.getParameter("num");
@@ -149,13 +161,15 @@ public class BoardController extends HttpServlet {
 			String name = request.getParameter("name");
 			try {
 				new MemberService().signUp(id, email, name);
-				view = "redirect:loginForm";
+				view = "redirect:loginForm2";
 			} catch (Exception e) {
 				request.setAttribute("errorMessage", e.getMessage());
 				view = "errorBack.jsp";
 			}
 		} else if (com.equals("/aa")) {
 			view = "index.jsp";
+		} else if (com.equals("/signUp")) {
+			view = "signUp.jsp";
 		}
 		
 		// view에 담긴 문자열에 따라 포워딩 또는 리다이렉팅

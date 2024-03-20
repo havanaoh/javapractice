@@ -75,7 +75,6 @@ public class MemberService {
 
 	public void updateMember(String name, String email, int memberno) 
 			throws Exception {
-		System.out.println(name + email);
 		if (name == null || name.length() == 0 || 
 			email == null || email.length() == 0) {
 			throw new Exception("모든 항목이 빈칸 없이 입력되어야 합니다.");

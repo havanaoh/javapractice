@@ -4,7 +4,7 @@
 <%
 	MemberDto member = (MemberDto)session.getAttribute("member");
 	if(member == null){
-		response.sendRedirect("loginForm.jsp");
+		response.sendRedirect("loginForm2.jsp");
 	}
 		
 	request.setAttribute("name", member.getName());
@@ -25,12 +25,12 @@
 </head>
 <body>
 
-<form method="post" action="insert">
+<form method="post" action="${action}">
     <table>
         <tr>
             <th>제목</th>
             <td><input type="text" name="title"  maxlength="80"
-                       value="${title}">
+                       value="${msg.title}">
             </td>
         </tr>
         <tr>
@@ -41,13 +41,13 @@
         </tr>
         <tr>
             <th>내용</th>
-            <td><textarea name="content" rows="10">${content}</textarea>
+            <td><textarea name="content" rows="10">${msg.content}</textarea>
             </td>
         </tr>
     </table>
 
     <br>
-<input type="hidden" name="num" value="${num }">
+<input type="hidden" name="num" value="${num}">
     <input type="submit" value="저장" >
     <input type="button" value="취소" onclick="history.back()">
 </form>

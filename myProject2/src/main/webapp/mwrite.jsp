@@ -5,7 +5,7 @@
 <%
 	MemberDto member = (MemberDto)session.getAttribute("member");
 	if(member == null){
-		response.sendRedirect("loginForm.jsp");
+		response.sendRedirect("loginForm2.jsp");
 	}	
 	request.setAttribute("memberno", member.getMemberno());
 	request.setAttribute("id", member.getId());

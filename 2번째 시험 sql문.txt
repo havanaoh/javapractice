@@ -79,3 +79,14 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response) t
 }
 
 
+SELECT * FROM
+ (SELECT ROWNUM rn, boardno
+   FROM (SELECT boardno     
+     	 FROM board
+     	 ORDER BY boardno))
+WHERE rn BETWEEN : pageSize * (:page - 1) + 1 AND :pageSize*:page;
+
+select * 
+from (SELECT ROWNUM rn, b.*
+FROM (SELECT * FROM board ORDER BY boardno DESC) b)
+where rn BETWEEN 4 and 6
