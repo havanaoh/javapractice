@@ -162,7 +162,7 @@
         <Valve className="org.apache.catalina.valves.AccessLogValve" directory="logs" pattern="%h %l %u %t &quot;%r&quot; %s %b" prefix="localhost_access_log" suffix=".txt"/>
 
       
-      <Context docBase="myProject2" path="/myProject2" reloadable="true" source="org.eclipse.jst.jee.server:myProject2"/><Context docBase="todoLst_servlet" path="/todoList_servlet" reloadable="true" source="org.eclipse.jst.jee.server:todoLst_servlet"/></Host>
+      </Host>
     </Engine>
   </Service>
 </Server>
