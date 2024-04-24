@@ -23,7 +23,7 @@ public class SurveyController {
 
 	private List<Question> createQuestions() {
 		Question q1 = new Question("당신의 역할은 무엇입니까?",
-				Arrays.asList("서버", "프론트", "풀스택", "백엔드"));
+				Arrays.asList("서버", "프론트", "풀스택"));
 		Question q2 = new Question("많이 사용하는 개발도구는 무엇입니까?",
 				Arrays.asList("이클립스", "인텔리J", "서브라임"));
 		Question q3 = new Question("하고 싶은 말을 적어주세요.");
